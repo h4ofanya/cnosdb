@@ -23,6 +23,7 @@ async-backtrace = { workspace = true, optional = true }
 lazy_static = { workspace = true }
 parking_lot = { workspace = true }
 datafusion = { workspace = true }
+prost ={ workspace = true }
 
 [features]
 default = []
