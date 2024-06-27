@@ -94,18 +94,18 @@ jobs:
         run: |
           if [[ "${{ matrix.version }}" = "release" ]] && [[ "${{ matrix.image }}" = "cnosdb" ]]; then
             docker buildx build -f docker/Dockerfile --platform linux/amd64,linux/arm64 \
-              -t cnosdb/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }} \
+              -t ltd867317617/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }} \
               --build-arg="git_hash=${{ github.sha }}" . --push
           elif [[ "${{ matrix.version }}" = "release" ]] && [[ "${{ matrix.image }}" = "cnosdb-meta" ]]; then
             docker buildx build -f docker/Dockerfile_meta --platform linux/amd64,linux/arm64 \
-              -t cnosdb/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }} \
+              -t ltd867317617/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }} \
               --build-arg="git_hash=${{ github.sha }}" . --push
           elif [[ "${{ matrix.version }}" = "memcheck" ]] && [[ "${{ matrix.image }}" = "cnosdb" ]]; then
             docker buildx build -f docker/Dockerfile --platform linux/amd64 \
-              -t cnosdb/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }}-memcheck \
+              -t ltd867317617/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }}-memcheck \
               --build-arg="git_hash=${{ github.sha }}" . --push
           elif [[ "${{ matrix.version }}" = "memcheck" ]] && [[ "${{ matrix.image }}" = "cnosdb-meta" ]]; then
             docker buildx build -f docker/Dockerfile_meta --platform linux/amd64 \
-              -t cnosdb/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }}-memcheck \
+              -t ltd867317617/${{matrix.image}}:community-${{ steps.get-tag.outputs.TAG }}-memcheck \
               --build-arg="git_hash=${{ github.sha }}" . --push
           fi
