@@ -216,6 +216,26 @@ fn test2() {
     std::fs::write(config_file_path, config.to_string_pretty()).unwrap();
 
     let _data = run_singleton(test_dir, data_node_def, false, false);
+    {
+        let client = Client::with_auth("root".to_string(), None);
+
+        let resp = client
+            .post("http://127.0.0.1:8902/api/v1/sql?db=public", "select 1")
+            .unwrap();
+        assert_eq!(resp.status(), status_code::UNPROCESSABLE_ENTITY);
+        assert_eq!(
+            resp.text().unwrap(),
+            "{\"error_code\":\"010016\",\"error_message\":\"Auth error: Access denied for user 'root' (using xxx) username or password invalid\"}" 
+        );
+    }
+    {
+        let client = Client::with_auth("root".to_string(), Some("root".to_string()));
+
+        let resp = client
+            .post("http://127.0.0.1:8902/api/v1/sql?db=public", "select 1")
+            .unwrap();
+        assert_response_is_ok!(resp);
+    }
 
     {
         let client = Client::with_auth("test_must".to_string(), Some("123".to_string()));
